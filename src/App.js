@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import './App.css'
 import AddUser from './components/users/AddUser'
-import DeleteModal from './components/UI/DeleteModal'
 import UserList from './components/users/UsersList'
 
 function App() {
@@ -26,7 +25,7 @@ function App() {
 				return [el]
 			}
 		})
-		console.log(filteredList)
+		
 		setUserList(filteredList)
 	}
 
