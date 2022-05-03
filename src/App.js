@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react'
+import './App.css'
+import AddUser from './components/users/AddUser'
+import DeleteModal from './components/UI/DeleteModal'
+import UserList from './components/users/UsersList'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [userList, setUserList] = useState([])
+
+	const addUserHandler = (uName, uAge) => {
+		setUserList((prevUserList) => {
+			return [
+				...prevUserList,
+				{
+					name: uName,
+					age: uAge,
+					id: Math.random().toString(),
+				},
+			]
+		})
+	}
+
+	const deleteFunctionHandler = (id) => {
+		const filteredList = userList.filter((el) => {
+			if (el.id !== id) {
+				return [el]
+			}
+		})
+		console.log(filteredList)
+		setUserList(filteredList)
+	}
+
+	return (
+		<div className='App'>
+			<AddUser onAddUser={addUserHandler} />
+
+			<UserList users={userList} onDelete={deleteFunctionHandler} />
+		</div>
+	)
 }
 
-export default App;
+export default App
